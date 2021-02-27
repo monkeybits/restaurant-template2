@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "250930131752",
+    "project_id": "apt-arcana-285309",
+    "storage_bucket": "apt-arcana-285309.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:250930131752:android:c0f5943a28a6943b5f161d",
+        "android_client_info": {
+          "package_name": "com.monkeybits.tinpanalley"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "250930131752-icdu1rt1r4h5pvfh9dc3ei03ge2kd1t9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFdktZGxqXCQhnMQPzhYXGaXCRTG2_hCU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "250930131752-icdu1rt1r4h5pvfh9dc3ei03ge2kd1t9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
