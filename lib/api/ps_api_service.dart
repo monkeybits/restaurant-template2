@@ -285,17 +285,16 @@ class PsApiService extends PsApi {
   /// Product
   ///
   Future<PsResource<List<Product>>> getProductList(
-      Map<dynamic, dynamic> paramMap, int limit, int offset) async {
+      String cat_id, String sub_cat_id, int limit, int offset) async {
     // final String url =
     //     '${PsUrl.ps_product_url}/api_key/${PsConfig.ps_api_key}/limit/$limit/offset/$offset';
 
     // return await postData<Product, List<Product>>(Product(), url, paramMap);
-        CollectionReference products = FirebaseFirestore.instance
+    CollectionReference products = FirebaseFirestore.instance
         .collection('lowcostapps')
         .doc('tinpanalley')
         .collection('products');
-    QuerySnapshot querySnapshot =
-        await products.get();
+    QuerySnapshot querySnapshot = await products.where('cat_id', isEqualTo: cat_id).where('sub_cat_id', isEqualTo: sub_cat_id).get();
     var productsList = [];
     querySnapshot.docs.forEach((doc) {
       var product = doc.data();
@@ -311,19 +310,20 @@ class PsApiService extends PsApi {
     // final String url =
     //     '${PsUrl.ps_product_detail_url}/api_key/${PsConfig.ps_api_key}/id/$productId/login_user_id/$loginUserId';
     // return await getServerCall<Product, Product>(Product(), url);
-      CollectionReference products = FirebaseFirestore.instance
+    CollectionReference products = FirebaseFirestore.instance
         .collection('lowcostapps')
         .doc('tinpanalley')
         .collection('products');
     QuerySnapshot querySnapshot =
-        await products.get();
+        await products.where('id', whereIn: [productId]).get();
     var productsList = [];
     querySnapshot.docs.forEach((doc) {
       var product = doc.data();
       print(product);
       productsList.add(product);
     });
-    return await getServerCall2<Product, Product>(Product(), null, productsList[0]);
+    return await getServerCall2<Product, Product>(
+        Product(), null, productsList[0]);
   }
 
   Future<PsResource<List<Product>>> getRelatedProductList(

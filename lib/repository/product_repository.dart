@@ -105,8 +105,9 @@ class ProductRepository extends PsRepository {
 
     // Server Call
     if (isConnectedToInternet) {
+      var data = holder.toMap();
       final PsResource<List<Product>> _resource =
-          await _psApiService.getProductList(holder.toMap(), limit, offset);
+          await _psApiService.getProductList(data['cat_id'], data['sub_cat_id'], limit, offset);
 
       // print('Param Key $paramKey');
       if (_resource.status == PsStatus.SUCCESS) {
@@ -182,8 +183,9 @@ class ProductRepository extends PsRepository {
             primaryKey, mapKey, paramKey, productMapDao, ProductMap(),
             status: status));
     if (isConnectedToInternet) {
+      var data = holder.toMap();
       final PsResource<List<Product>> _resource =
-          await _psApiService.getProductList(holder.toMap(), limit, offset);
+          await _psApiService.getProductList(data['cat_id'], data['sub_cat_id'], limit, offset);
 
       if (_resource.status == PsStatus.SUCCESS) {
         // Create Map List
