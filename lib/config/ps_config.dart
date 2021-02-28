@@ -100,7 +100,7 @@ class PsConfig {
   /// ..............................................................
   ///
   static final Language defaultLanguage =
-      Language(languageCode: 'en', countryCode: 'US', name: 'English US');
+      Language(languageCode: 'it', countryCode: 'IT', name: 'Italian');
 
   static final List<Language> psSupportedLanguageList = <Language>[
     Language(languageCode: 'en', countryCode: 'US', name: 'English'),
