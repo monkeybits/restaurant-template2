@@ -7,6 +7,7 @@ import 'package:flutterrestaurant/constant/ps_dimens.dart';
 import 'package:flutterrestaurant/constant/route_paths.dart';
 import 'package:flutterrestaurant/provider/product/favourite_product_provider.dart';
 import 'package:flutterrestaurant/repository/product_repository.dart';
+import 'package:flutterrestaurant/ui/common/dialog/success_dialog.dart';
 import 'package:flutterrestaurant/ui/common/ps_admob_banner_widget.dart';
 import 'package:flutterrestaurant/ui/common/ps_ui_widget.dart';
 import 'package:flutterrestaurant/ui/product/item/product_vertical_list_item.dart';
@@ -319,6 +320,13 @@ class _FavouriteProductListView extends State<AddSubcategoryView>
                                                       'img_path': value
                                                     }
                                                   });
+                                                   showDialog<dynamic>(
+                                                    context: context,
+                                                    builder: (BuildContext context) {
+                                                      return SuccessDialog(
+                                                        message: "Subcategory added",
+                                                      );
+                                                    });
                                                 });
                                               });
                                             });

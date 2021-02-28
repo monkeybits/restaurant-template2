@@ -294,7 +294,13 @@ class PsApiService extends PsApi {
         .collection('lowcostapps')
         .doc('tinpanalley')
         .collection('products');
-    QuerySnapshot querySnapshot = await products.where('cat_id', isEqualTo: cat_id).where('sub_cat_id', isEqualTo: sub_cat_id).get();
+    QuerySnapshot querySnapshot;
+    if (cat_id != '' && sub_cat_id != '')
+    querySnapshot = await products.where('cat_id', isEqualTo: cat_id).where('sub_cat_id', isEqualTo: sub_cat_id).get();
+    else if (cat_id != '' && sub_cat_id == '')
+    querySnapshot = await products.where('cat_id', isEqualTo: cat_id).get();
+    else querySnapshot = await products.get();
+
     var productsList = [];
     querySnapshot.docs.forEach((doc) {
       var product = doc.data();
