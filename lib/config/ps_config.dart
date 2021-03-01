@@ -35,7 +35,7 @@ class PsConfig {
   ///
   /// Facebook Key
   ///
-  static const String fbKey = '0000000000000000';
+  static const String fbKey = '5385030111537245';
 
   ///
   /// Admob Setting
