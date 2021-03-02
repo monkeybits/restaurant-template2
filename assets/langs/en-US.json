@@ -308,6 +308,8 @@
   "detail_info_tile__nutrient": "Nutrient",
   "description_tile__product_description": "Product Description",
   "transaction_list__title": "Transaction List",
+  "transaction_list__empty_cart_title": "No orders committed",
+  "transaction_list__empty_cart_description": "At the moment no orders committed",
   "transaction_list__total_amount": "Total Amount",
   "transaction_detail__trans_no": "Order No",
   "transaction_detail__title": "Transaction Detail",

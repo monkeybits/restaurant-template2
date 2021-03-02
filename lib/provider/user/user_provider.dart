@@ -6,6 +6,7 @@ import 'package:apple_sign_in/scope.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:flutterrestaurant/config/ps_config.dart';
 import 'package:flutterrestaurant/constant/ps_constants.dart';
@@ -88,6 +89,10 @@ class UserProvider extends PsProvider {
   StreamController<PsResource<User>> userListStream;
   final fb_auth.FirebaseAuth _firebaseAuth = fb_auth.FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+  CollectionReference users = FirebaseFirestore.instance
+      .collection('lowcostapps')
+      .doc('tinpanalley')
+      .collection('users');
 
   @override
   void dispose() {
@@ -236,7 +241,15 @@ class UserProvider extends PsProvider {
 
     _user = await _repo.postPhoneLogin(
         jsonMap, isConnectedToInternet, PsStatus.PROGRESS_LOADING);
-
+    var current_user_id = fb_auth.FirebaseAuth.instance.currentUser.uid;
+    try {
+      // check if admin
+      var document = await users.doc(current_user_id).get();
+      PsSharedPreferences pref = PsSharedPreferences.instance;
+      pref.shared.setString('user_role', document.data()['role']);
+    } catch (e) {
+      print(e);
+    }
     return _user;
   }
 
@@ -250,6 +263,15 @@ class UserProvider extends PsProvider {
     _user = await _repo.postFBLogin(
         jsonMap, isConnectedToInternet, PsStatus.PROGRESS_LOADING);
 
+    try {
+      // check if admin
+      var document = await users.doc(_user.data.facebookId).get();
+      PsSharedPreferences pref = PsSharedPreferences.instance;
+      pref.shared.setString('user_role', document.data()['role']);
+    } catch (e) {
+      print(e);
+    }
+
     return _user;
   }
 
@@ -262,6 +284,14 @@ class UserProvider extends PsProvider {
 
     _user = await _repo.postGoogleLogin(
         jsonMap, isConnectedToInternet, PsStatus.PROGRESS_LOADING);
+    try {
+      // check if admin
+      var document = await users.doc(_user.data.googleId).get();
+      PsSharedPreferences pref = PsSharedPreferences.instance;
+      pref.shared.setString('user_role', document.data()['role']);
+    } catch (e) {
+      print(e);
+    }
 
     return _user;
   }
@@ -1024,8 +1054,10 @@ class UserProvider extends PsProvider {
       result = await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
       user = result.user;
-      CollectionReference users =
-          FirebaseFirestore.instance.collection('lowcostapps').doc('tinpanalley').collection('users');
+      CollectionReference users = FirebaseFirestore.instance
+          .collection('lowcostapps')
+          .doc('tinpanalley')
+          .collection('users');
       var document = await users.doc(user.uid).get();
       PsSharedPreferences pref = PsSharedPreferences.instance;
       pref.shared.setString('user_role', document.data()['role']);
