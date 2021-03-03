@@ -496,6 +496,8 @@
     "transaction_restaurant" : "Ristorante :",
     "transaction_call_restaurant" : "Chiama il ristorante",
     "transaction_cancel_booking" : "Annulla prenotazione",
+    "transaction_list__empty_cart_title": "Nessun ordine effettuato",
+    "transaction_list__empty_cart_description": "Al momento nessun ordine è stato effettuato.",
     "reservation_confirm":"Vuoi davvero cancellare la prenotazione?",
     "more__activity_title": "ATTIVITA '",
     "more__favourite_title": "Preferiti",

@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "250930131752-ttt841tf45k908tldvp4h300n38loq6c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.monkeybits.tinpanalley",
+            "certificate_hash": "00dce73d071d205f4bb955e131d0ccc1fc2a089b"
+          }
+        },
+        {
           "client_id": "250930131752-icdu1rt1r4h5pvfh9dc3ei03ge2kd1t9.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,6 +37,13 @@
             {
               "client_id": "250930131752-icdu1rt1r4h5pvfh9dc3ei03ge2kd1t9.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "250930131752-qm0fc6d7l4066bjordaosvckkf9of5q1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.monkeybits.tinpanalley"
+              }
             }
           ]
         }

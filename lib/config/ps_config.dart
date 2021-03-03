@@ -35,7 +35,7 @@ class PsConfig {
   ///
   /// Facebook Key
   ///
-  static const String fbKey = '0000000000000000';
+  static const String fbKey = '5385030111537245';
 
   ///
   /// Admob Setting
@@ -206,8 +206,8 @@ class PsConfig {
   ///
   /// Default Location
   ///
-  static String lat = '1.331117';
-  static String lng = '103.849622';
+  static String lat = '45.5186309';
+  static String lng = '9.7029666';
 
   ///
   /// Razor Currency

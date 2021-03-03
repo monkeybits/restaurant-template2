@@ -188,7 +188,7 @@ class _HomeViewState extends State<DashboardView>
       case PsConst.REQUEST_CODE__DASHBOARD_PHONE_VERIFY_FRAGMENT:
         index = 2;
         break;
-      case PsConst.REQUEST_CODE__MENU_FAVOURITE_FRAGMENT:
+      case PsConst.REQUEST_CODE__MENU_TRANSACTION_FRAGMENT:
         index = 3;
         break;
       case PsConst.REQUEST_CODE__DASHBOARD_BASKET_FRAGMENT:
@@ -224,8 +224,8 @@ class _HomeViewState extends State<DashboardView>
             : Utils.getString(context, 'home__bottom_app_bar_verify_email');
         break;
       case 3:
-        index = PsConst.REQUEST_CODE__MENU_FAVOURITE_FRAGMENT;
-        title = Utils.getString(context, 'home__menu_drawer_favourite');
+        index = PsConst.REQUEST_CODE__MENU_TRANSACTION_FRAGMENT;
+        title = Utils.getString(context, 'home__menu_drawer_transaction');
         break;
       case 4:
         index = PsConst.REQUEST_CODE__DASHBOARD_BASKET_FRAGMENT;
@@ -763,6 +763,8 @@ class _HomeViewState extends State<DashboardView>
                 _currentIndex ==
                     PsConst.REQUEST_CODE__MENU_FAVOURITE_FRAGMENT ||
                 _currentIndex ==
+                    PsConst.REQUEST_CODE__MENU_TRANSACTION_FRAGMENT ||
+                _currentIndex ==
                     PsConst.REQUEST_CODE__DASHBOARD_BASKET_FRAGMENT ||
                 _currentIndex ==
                     PsConst.REQUEST_CODE__DASHBOARD_LOGIN_FRAGMENT ||
@@ -806,7 +808,7 @@ class _HomeViewState extends State<DashboardView>
                           context, 'home__bottom_app_bar_login'),
                     ),
                     BottomNavigationBarItem(
-                      icon: const Icon(Icons.favorite),
+                      icon: const Icon(Icons.receipt),
                       label: Utils.getString(
                           context, 'home__bottom_app_bar_search'),
                     ),

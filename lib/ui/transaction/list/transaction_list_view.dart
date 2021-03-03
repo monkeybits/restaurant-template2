@@ -1,4 +1,5 @@
 import 'package:flutterrestaurant/config/ps_config.dart';
+import 'package:flutterrestaurant/constant/ps_dimens.dart';
 import 'package:flutterrestaurant/provider/transaction/transaction_header_provider.dart';
 import 'package:flutterrestaurant/repository/transaction_header_repository.dart';
 import 'package:flutterrestaurant/ui/common/ps_admob_banner_widget.dart';
@@ -139,7 +140,69 @@ class _TransactionListViewState extends State<TransactionListView>
             ],
           );
         } else {
-          return Container();
+           widget.animationController.forward();
+              final Animation<double> animation =
+                  Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+                      parent: widget.animationController,
+                      curve: const Interval(0.5 * 1, 1.0,
+                          curve: Curves.fastOutSlowIn)));
+              return AnimatedBuilder(
+                animation: widget.animationController,
+                child: SingleChildScrollView(
+                  child: Container(
+                    height: MediaQuery.of(context).size.height,
+                    padding: const EdgeInsets.only(bottom: PsDimens.space120),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Image.asset(
+                          'assets/images/empty_basket.png',
+                          height: 150,
+                          width: 200,
+                          fit: BoxFit.cover,
+                        ),
+                        const SizedBox(
+                          height: PsDimens.space32,
+                        ),
+                        Text(
+                          Utils.getString(
+                              context, 'transaction_list__empty_cart_title'),
+                          style:
+                              Theme.of(context).textTheme.bodyText1.copyWith(),
+                        ),
+                        const SizedBox(
+                          height: PsDimens.space20,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(
+                              PsDimens.space32, 0, PsDimens.space32, 0),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                                Utils.getString(context,
+                                    'transaction_list__empty_cart_description'),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2
+                                    .copyWith(),
+                                textAlign: TextAlign.center),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                builder: (BuildContext context, Widget child) {
+                  return FadeTransition(
+                      opacity: animation,
+                      child: Transform(
+                          transform: Matrix4.translationValues(
+                              0.0, 100 * (1.0 - animation.value), 0.0),
+                          child: child));
+                },
+              );
         }
       }),
     );
