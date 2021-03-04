@@ -329,10 +329,10 @@ class ImageAndTextWidget extends StatelessWidget {
                     child: Text(data.aboutEmail,
                         style: Theme.of(context).textTheme.bodyText1),
                     onTap: () async {
-                      if (await canLaunch('mailto:teamps.is.cool@gmail.com')) {
-                        await launch('mailto:teamps.is.cool@gmail.com');
+                      if (await canLaunch('mailto:tpamusic@icloud.com.com')) {
+                        await launch('mailto:tpamusic@icloud.com.com');
                       } else {
-                        throw 'Could not launch teamps.is.cool@gmail.com';
+                        throw 'Could not launch tpamusic@icloud.com.com';
                       }
                     },
                   ),

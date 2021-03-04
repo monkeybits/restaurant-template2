@@ -20,7 +20,7 @@
     <application
         android:name=".Application" 
         tools:replace="android:label"
-        android:label="Flutter Restaurant"
+        android:label="Tin Pan Alley"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <activity
