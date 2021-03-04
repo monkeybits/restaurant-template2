@@ -664,7 +664,7 @@ class UserProvider extends PsProvider {
             /// Success
             ///
             if (onGoogleIdSignInSelected != null) {
-              onGoogleIdSignInSelected(resourceUser.data.userId);
+              onGoogleIdSignInSelected(resourceUser.data.googleId);
             } else {
               Navigator.pop(context, resourceUser.data);
             }
@@ -964,7 +964,7 @@ class UserProvider extends PsProvider {
 
       if (_apiStatus.data != null) {
         await replaceVerifyUserData('', '', '', '');
-        await replaceLoginUserId(_apiStatus.data.userId);
+        await replaceLoginUserId(_apiStatus.data.facebookId);
       }
 
       return _apiStatus;

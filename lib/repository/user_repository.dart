@@ -259,7 +259,7 @@ class UserRepository extends PsRepository {
     if (_resource.status == PsStatus.SUCCESS) {
       await _userLoginDao.deleteAll();
       await insert(_resource.data);
-      final String userId = _resource.data.userId;
+      final String userId = _resource.data.googleId;
       final UserLogin userLogin =
           UserLogin(id: userId, login: true, user: _resource.data);
       await insertUserLogin(userLogin);

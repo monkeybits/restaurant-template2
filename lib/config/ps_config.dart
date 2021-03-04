@@ -200,7 +200,7 @@ class PsConfig {
   /// Dashboard Setting
   ///
   static bool showHome = true;
-  static bool showSpecialCollections = true;
+  static bool showSpecialCollections = false;
   static bool showFeaturedItems = true;
 
   ///
