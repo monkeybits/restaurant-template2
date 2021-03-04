@@ -191,8 +191,10 @@ class _Checkout3ViewState extends State<Checkout3View> {
                 userLoginProvider.user.data.area.areaName,
                 memoController.text,
                 valueHolder);
-
-        if (_apiStatus.data != null) {
+        var dummy = {
+          'id': 'rrfwddedewde', 'user_id': 'usr44718ec49f36081aa630e61c43758025', 'trans_code': ''
+        };
+        if (_apiStatus.data!= null) {
           PsProgressDialog.dismissDialog();
           await basketProvider.deleteWholeBasketList();
           // Navigator.pop(context, true);
