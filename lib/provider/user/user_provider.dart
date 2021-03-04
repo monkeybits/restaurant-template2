@@ -773,7 +773,7 @@ class UserProvider extends PsProvider {
 
       if (_apiStatus.data != null) {
         await replaceVerifyUserData('', '', '', '');
-        await replaceLoginUserId(_apiStatus.data.userId);
+        await replaceLoginUserId(_apiStatus.data.googleId);
       }
 
       return _apiStatus;

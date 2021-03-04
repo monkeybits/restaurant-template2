@@ -296,10 +296,14 @@ class PsApiService extends PsApi {
         .collection('products');
     QuerySnapshot querySnapshot;
     if (cat_id != '' && sub_cat_id != '')
-    querySnapshot = await products.where('cat_id', isEqualTo: cat_id).where('sub_cat_id', isEqualTo: sub_cat_id).get();
+      querySnapshot = await products
+          .where('cat_id', isEqualTo: cat_id)
+          .where('sub_cat_id', isEqualTo: sub_cat_id)
+          .get();
     else if (cat_id != '' && sub_cat_id == '')
-    querySnapshot = await products.where('cat_id', isEqualTo: cat_id).get();
-    else querySnapshot = await products.get();
+      querySnapshot = await products.where('cat_id', isEqualTo: cat_id).get();
+    else
+      querySnapshot = await products.get();
 
     var productsList = [];
     querySnapshot.docs.forEach((doc) {
@@ -379,8 +383,19 @@ class PsApiService extends PsApi {
     final String url =
         '${PsUrl.ps_transactionList_url}/api_key/${PsConfig.ps_api_key}/user_id/$userId/limit/$limit/offset/$offset';
 
-    return await getServerCall<TransactionHeader, List<TransactionHeader>>(
-        TransactionHeader(), url);
+    CollectionReference transactions = FirebaseFirestore.instance
+        .collection('lowcostapps')
+        .doc('tinpanalley')
+        .collection('orders');
+    QuerySnapshot querySnapshot;
+    querySnapshot = await transactions.where('user_id', isEqualTo: userId).get();
+    var transactionsList = [];
+    querySnapshot.docs.forEach((doc) {
+      var transaction = doc.data();
+      transactionsList.add(transaction);
+    });
+    return await postData2<TransactionHeader, List<TransactionHeader>>(
+        TransactionHeader(), null, transactionsList);
   }
 
   Future<PsResource<List<TransactionDetail>>> getTransactionDetail(
