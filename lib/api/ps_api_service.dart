@@ -52,6 +52,11 @@ class PsApiService extends PsApi {
   Future<PsResource<User>> postUserRegister(
       Map<dynamic, dynamic> jsonMap) async {
     const String url = '${PsUrl.ps_post_ps_user_register_url}';
+        CollectionReference users = FirebaseFirestore.instance
+        .collection('lowcostapps')
+        .doc('tinpanalley')
+        .collection('users');
+    var document = await users.doc(jsonMap['userId']).set(jsonMap);
     return await postData<User, User>(User(), url, jsonMap);
   }
 

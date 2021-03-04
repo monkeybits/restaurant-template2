@@ -76,7 +76,7 @@ class UserRepository extends PsRepository {
     }
   }
 
-  Future<PsResource<User>> postUserLogin(Map<dynamic, dynamic> jsonMap,
+  Future<PsResource<User>>  postUserLogin(Map<dynamic, dynamic> jsonMap,
       bool isConnectedToInternet, PsStatus status,
       {bool isLoadFromServer = true}) async {
     final PsResource<User> _resource =

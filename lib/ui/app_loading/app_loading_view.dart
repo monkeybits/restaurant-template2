@@ -56,68 +56,70 @@ class AppLoadingView extends StatelessWidget {
        await provider.replaceDate(realStartDate, realEndDate);
         print(Utils.getString(context, 'app_info__cancel_button_name'));
         print(Utils.getString(context, 'app_info__update_button_name'));
-
-        if (_psAppInfo.data.userInfo.userStatus == PsConst.USER_BANNED) {
-          callLogout(
-              provider,
-              // deleteTaskProvider,
-              PsConst.REQUEST_CODE__MENU_HOME_FRAGMENT,
-              context);
-          showDialog<dynamic>(
-              context: context,
-              builder: (BuildContext context) {
-                return WarningDialog(
-                  message: Utils.getString(context, 'user_status__banned'),
-                  onPressed: () {
-                    checkVersionNumber(context, _psAppInfo.data, provider,
-                        clearAllDataProvider);
-                    realStartDate = realEndDate;
-                  },
-                );
-              });
-        } else if (_psAppInfo.data.userInfo.userStatus ==
-            PsConst.USER_DELECTED) {
-          callLogout(
-              provider,
-              // deleteTaskProvider,
-              PsConst.REQUEST_CODE__MENU_HOME_FRAGMENT,
-              context);
-          showDialog<dynamic>(
-              context: context,
-              builder: (BuildContext context) {
-                return WarningDialog(
-                  message: Utils.getString(context, 'user_status__deleted'),
-                  onPressed: () {
-                    checkVersionNumber(context, _psAppInfo.data, provider,
-                        clearAllDataProvider);
-                    realStartDate = realEndDate;
-                  },
-                );
-              });
-        } else if (_psAppInfo.data.userInfo.userStatus ==
-            PsConst.USER_UN_PUBLISHED) {
-          callLogout(
-              provider,
-              // deleteTaskProvider,
-              PsConst.REQUEST_CODE__MENU_HOME_FRAGMENT,
-              context);
-          showDialog<dynamic>(
-              context: context,
-              builder: (BuildContext context) {
-                return WarningDialog(
-                  message: Utils.getString(context, 'user_status__unpublished'),
-                  onPressed: () {
-                    checkVersionNumber(context, _psAppInfo.data, provider,
-                        clearAllDataProvider);
-                    realStartDate = realEndDate;
-                  },
-                );
-              });
-        } else {
-          checkVersionNumber(
+         checkVersionNumber(
               context, _psAppInfo.data, provider, clearAllDataProvider);
           realStartDate = realEndDate;
-        }
+        // if (_psAppInfo.data.userInfo.userStatus == PsConst.USER_BANNED) {
+        //   callLogout(
+        //       provider,
+        //       // deleteTaskProvider,
+        //       PsConst.REQUEST_CODE__MENU_HOME_FRAGMENT,
+        //       context);
+        //   showDialog<dynamic>(
+        //       context: context,
+        //       builder: (BuildContext context) {
+        //         return WarningDialog(
+        //           message: Utils.getString(context, 'user_status__banned'),
+        //           onPressed: () {
+        //             checkVersionNumber(context, _psAppInfo.data, provider,
+        //                 clearAllDataProvider);
+        //             realStartDate = realEndDate;
+        //           },
+        //         );
+        //       });
+        // } else if (_psAppInfo.data.userInfo.userStatus ==
+        //     PsConst.USER_DELECTED) {
+        //   callLogout(
+        //       provider,
+        //       // deleteTaskProvider,
+        //       PsConst.REQUEST_CODE__MENU_HOME_FRAGMENT,
+        //       context);
+        //   showDialog<dynamic>(
+        //       context: context,
+        //       builder: (BuildContext context) {
+        //         return WarningDialog(
+        //           message: Utils.getString(context, 'user_status__deleted'),
+        //           onPressed: () {
+        //             checkVersionNumber(context, _psAppInfo.data, provider,
+        //                 clearAllDataProvider);
+        //             realStartDate = realEndDate;
+        //           },
+        //         );
+        //       });
+        // } else if (_psAppInfo.data.userInfo.userStatus ==
+        //     PsConst.USER_UN_PUBLISHED) {
+        //   callLogout(
+        //       provider,
+        //       // deleteTaskProvider,
+        //       PsConst.REQUEST_CODE__MENU_HOME_FRAGMENT,
+        //       context);
+        //   showDialog<dynamic>(
+        //       context: context,
+        //       builder: (BuildContext context) {
+        //         return WarningDialog(
+        //           message: Utils.getString(context, 'user_status__unpublished'),
+        //           onPressed: () {
+        //             checkVersionNumber(context, _psAppInfo.data, provider,
+        //                 clearAllDataProvider);
+        //             realStartDate = realEndDate;
+        //           },
+        //         );
+        //       });
+        // } else {
+        //   checkVersionNumber(
+        //       context, _psAppInfo.data, provider, clearAllDataProvider);
+        //   realStartDate = realEndDate;
+        // }
       } else if (_psAppInfo.status == PsStatus.ERROR) {
         Navigator.pushReplacementNamed(
           context,
