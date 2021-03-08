@@ -27,7 +27,7 @@ class UserRepository extends PsRepository {
   PsApiService _psApiService;
   UserDao _userDao;
   UserLoginDao _userLoginDao;
-  final String _userPrimaryKey = 'user_id';
+  final String _userPrimaryKey = 'userId';
   final String _userLoginPrimaryKey = 'map_key';
 
   void sinkUserDetailStream(StreamController<PsResource<User>> userListStream,
@@ -237,6 +237,7 @@ class UserRepository extends PsRepository {
     final PsResource<User> _resource = await _psApiService.postFBLogin(jsonMap);
     if (_resource.status == PsStatus.SUCCESS) {
       await _userLoginDao.deleteAll();
+      _resource.data.userId = _resource.data.facebookId;
       await insert(_resource.data);
       final String userId = _resource.data.userId;
       final UserLogin userLogin =
@@ -258,6 +259,8 @@ class UserRepository extends PsRepository {
         await _psApiService.postGoogleLogin(jsonMap);
     if (_resource.status == PsStatus.SUCCESS) {
       await _userLoginDao.deleteAll();
+      _resource.data.userId = _resource.data.googleId;
+      _resource.data.userProfilePhoto == null ? '' : _resource.data.userProfilePhoto;
       await insert(_resource.data);
       final String userId = _resource.data.googleId;
       final UserLogin userLogin =

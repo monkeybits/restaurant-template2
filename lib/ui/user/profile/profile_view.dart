@@ -242,8 +242,8 @@ class __ProfileDetailWidgetState extends State<_ProfileDetailWidget> {
                                 userProvider: provider,
                               )
                             : _dividerWidget,
-                        _JoinDateWidget(userProvider: provider),
-                        _dividerWidget,
+                        // _JoinDateWidget(userProvider: provider),
+                        // _dividerWidget,
                       ],
                     ),
                   ),

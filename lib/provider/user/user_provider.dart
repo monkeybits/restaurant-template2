@@ -830,7 +830,7 @@ class UserProvider extends PsProvider {
             /// Success
             ///
             if (onFacebookIdSignInSelected != null) {
-              onFacebookIdSignInSelected(resourceUser.data.userId);
+              onFacebookIdSignInSelected(resourceUser.data.facebookId);
             } else {
               Navigator.pop(context, resourceUser.data);
             }
@@ -986,7 +986,7 @@ class UserProvider extends PsProvider {
       /// Get Firebase User with Email Id Login
       ///
 
-      await signInWithEmailAndPassword(context, email, email);
+      var result = await signInWithEmailAndPassword(context, email, email);
 
       ///
       /// Show Progress Dialog
@@ -997,7 +997,7 @@ class UserProvider extends PsProvider {
       /// Submit to backend
       ///
       final PsResource<User> resourceUser =
-          await _submitLoginWithEmailId(email, password);
+          await _submitLoginWithEmailId(result.uid ,email, password);
 
       ///
       /// Close Progress Dialog
@@ -1060,7 +1060,7 @@ class UserProvider extends PsProvider {
           .collection('users');
       var document = await users.doc(user.uid).get();
       PsSharedPreferences pref = PsSharedPreferences.instance;
-      pref.shared.setString('user_role', document.data()['role']);
+      pref.shared.setString('user_role', document.data()['user_is_sys_admin']);
     } on Exception catch (e1) {
       print(e1);
 
@@ -1093,11 +1093,11 @@ class UserProvider extends PsProvider {
   }
 
   Future<PsResource<User>> _submitLoginWithEmailId(
-      String email, String password) async {
+      String id, String email, String password) async {
     final UserLoginParameterHolder userLoginParameterHolder =
         UserLoginParameterHolder(
       userEmail: email,
-      userPassword: password,
+      userPassword: id ,
       deviceToken: psValueHolder.deviceToken,
     );
 
@@ -1144,7 +1144,7 @@ class UserProvider extends PsProvider {
           /// Submit to backend
           ///
           final PsResource<User> resourceUser = await _submitSignUpWithEmailId(
-              context, onRegisterSelected, name, email, password);
+              context, onRegisterSelected, firebaseUser.uid, name, email, password);
 
           ///
           /// Close Progress Dialog
@@ -1358,12 +1358,13 @@ class UserProvider extends PsProvider {
   Future<PsResource<User>> _submitSignUpWithEmailId(
       BuildContext context,
       Function onRegisterSelected,
+      String id,
       String name,
       String email,
       String password) async {
     final UserRegisterParameterHolder userRegisterParameterHolder =
         UserRegisterParameterHolder(
-      userId: '',
+      userId: id,
       userName: name,
       userEmail: email,
       userPassword: password,

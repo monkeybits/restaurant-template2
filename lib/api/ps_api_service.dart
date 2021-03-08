@@ -52,12 +52,14 @@ class PsApiService extends PsApi {
   Future<PsResource<User>> postUserRegister(
       Map<dynamic, dynamic> jsonMap) async {
     const String url = '${PsUrl.ps_post_ps_user_register_url}';
-        CollectionReference users = FirebaseFirestore.instance
+    CollectionReference users = FirebaseFirestore.instance
         .collection('lowcostapps')
         .doc('tinpanalley')
         .collection('users');
-    var document = await users.doc(jsonMap['userId']).set(jsonMap);
-    return await postData<User, User>(User(), url, jsonMap);
+    jsonMap['status'] = '1';
+    jsonMap['is_banned'] = '0';
+    var document = await users.doc(jsonMap['user_id']).set(jsonMap);
+    return await postData2<User, User>(User(), null, jsonMap);
   }
 
   ///
@@ -74,7 +76,12 @@ class PsApiService extends PsApi {
   ///
   Future<PsResource<User>> postUserLogin(Map<dynamic, dynamic> jsonMap) async {
     const String url = '${PsUrl.ps_post_ps_user_login_url}';
-    return await postData<User, User>(User(), url, jsonMap);
+    CollectionReference users = FirebaseFirestore.instance
+        .collection('lowcostapps')
+        .doc('tinpanalley')
+        .collection('users');
+    var document = await users.doc(jsonMap['user_password']).get();
+    return await postData2<User, User>(User(), null, jsonMap);
   }
 
   ///
@@ -82,7 +89,19 @@ class PsApiService extends PsApi {
   ///
   Future<PsResource<User>> postFBLogin(Map<dynamic, dynamic> jsonMap) async {
     const String url = '${PsUrl.ps_post_ps_fb_login_url}';
-    return await postData<User, User>(User(), url, jsonMap);
+        CollectionReference users = FirebaseFirestore.instance
+        .collection('lowcostapps')
+        .doc('tinpanalley')
+        .collection('users');
+    try {
+      jsonMap['user_profile_photo'] = jsonMap['profile_photo_url'];
+      jsonMap['added_date'] = '';
+      jsonMap['user_phone'] = '';
+      var document = await users.doc(jsonMap['facebook_id']).set(jsonMap);
+    } catch (e) {
+      var document = await users.doc(jsonMap['facebook_id']).get();
+    }
+    return await postData2<User, User>(User(), null, jsonMap);
   }
 
   ///
@@ -91,7 +110,19 @@ class PsApiService extends PsApi {
   Future<PsResource<User>> postGoogleLogin(
       Map<dynamic, dynamic> jsonMap) async {
     const String url = '${PsUrl.ps_post_ps_google_login_url}';
-    return await postData<User, User>(User(), url, jsonMap);
+    CollectionReference users = FirebaseFirestore.instance
+        .collection('lowcostapps')
+        .doc('tinpanalley')
+        .collection('users');
+    try {
+      jsonMap['user_profile_photo'] = jsonMap['profile_photo_url'];
+      jsonMap['added_date'] = '';
+      jsonMap['user_phone'] = '';
+      var document = await users.doc(jsonMap['google_id']).set(jsonMap);
+    } catch (e) {
+      var document = await users.doc(jsonMap['google_id']).get();
+    }
+    return await postData2<User, User>(User(), null, jsonMap);
   }
 
   ///
@@ -153,8 +184,12 @@ class PsApiService extends PsApi {
   Future<PsResource<List<User>>> getUser(String userId) async {
     final String url =
         '${PsUrl.ps_user_url}/api_key/${PsConfig.ps_api_key}/user_id/$userId';
-
-    return await getServerCall<User, List<User>>(User(), url);
+     CollectionReference users = FirebaseFirestore.instance
+        .collection('lowcostapps')
+        .doc('tinpanalley')
+        .collection('users');
+    var document = await users.doc(userId).get();
+    return await getServerCall2<User, List<User>>(User(), null, document.data());
   }
 
   Future<PsResource<User>> postImageUpload(
@@ -393,7 +428,8 @@ class PsApiService extends PsApi {
         .doc('tinpanalley')
         .collection('orders');
     QuerySnapshot querySnapshot;
-    querySnapshot = await transactions.where('user_id', isEqualTo: userId).get();
+    querySnapshot =
+        await transactions.where('user_id', isEqualTo: userId).get();
     var transactionsList = [];
     querySnapshot.docs.forEach((doc) {
       var transaction = doc.data();
